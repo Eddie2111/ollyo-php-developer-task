@@ -19,7 +19,7 @@ Create a simple checkout system with PayPal payment gateway integration using va
 
 ### Api Documentation
 
-- Please find the relevant API Endpoint documentation [here](https://www.github.com)
+- Please find the relevant API Endpoint documentation [here](https://github.com/Eddie2111/ollyo-php-developer-task/blob/main/endpoints.md)
 
 ### Task Status
 1. Complete the View System ✅
