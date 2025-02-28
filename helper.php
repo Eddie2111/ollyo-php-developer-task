@@ -49,8 +49,16 @@ if (!function_exists('view')) {
      * @return string The rendered view content as a string
      */
     function view(string $name, array $data) {
-        // @todo: Complete the view function so that we could render a view with data.
-        // e.g. view('checkout', $data);
+        $viewFile = __DIR__ . '/src/Views/' . $name . '.php';
+
+        if (!file_exists($viewFile)) {
+            throw new Exception("View file not found: " . $viewFile);
+        }
+
+        ob_start();
+        extract($data);
+        include $viewFile;
+        return ob_get_clean();
     }
 }
 

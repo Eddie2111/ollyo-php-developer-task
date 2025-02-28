@@ -3,8 +3,11 @@ $products = $data['products'];
 $address = $data['address'];
 $shippingCost = $data['shipping_cost'];
 
-// @todo: Calculate the subtotal from the products array
+// Calculate the subtotal from the products array
 $subtotal = 0;
+foreach ($products as $product) {
+    $subtotal += $product['price'] * $product['qty'];
+}
 $total = $subtotal + $shippingCost;
 ?>
 
@@ -68,25 +71,43 @@ $total = $subtotal + $shippingCost;
                     <div class="space-y-4 mt-4">
                         <div class="space-y-1 flex flex-col">
                             <label class="text-sm text-gray-800 font-medium" for="name">Full Name</label>
-                            <input type="text" name="name" placeholder="Enter your full name" value="<?php echo $address['name']; ?>" id="name" class="bg-white px-2 text-sm rounded-md border border-gray-300 h-10 placeholder:text-sm placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-700 focus-visible:ring-offset-2">
+                            <input type="text" name="name" placeholder="Enter your full name" value="<?php echo htmlspecialchars($address['name'] ?? ''); ?>" id="name" class="bg-white px-2 text-sm rounded-md border border-gray-300 h-10 placeholder:text-sm placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-700 focus-visible:ring-offset-2 <?php echo isset($errors['name']) ? 'border-red-500' : ''; ?>">
+                            <?php if (isset($errors['name'])) : ?>
+                                <p class="text-red-500 text-xs"><?php echo $errors['name']; ?></p>
+                            <?php endif; ?>
                         </div>
+
                         <div class="space-y-1 flex flex-col">
-                            <label class="text-sm text-gray-800 font-medium" for="name">Email</label>
-                            <input type="email" name="email" placeholder="Enter your email" value="<?php echo $address['email']; ?>" id="email" class="bg-white px-2 text-sm rounded-md border border-gray-300 h-10 placeholder:text-sm placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-700 focus-visible:ring-offset-2">
+                            <label class="text-sm text-gray-800 font-medium" for="email">Email</label>
+                            <input type="email" name="email" placeholder="Enter your email" value="<?php echo htmlspecialchars($address['email'] ?? ''); ?>" id="email" class="bg-white px-2 text-sm rounded-md border border-gray-300 h-10 placeholder:text-sm placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-700 focus-visible:ring-offset-2 <?php echo isset($errors['email']) ? 'border-red-500' : ''; ?>">
+                            <?php if (isset($errors['email'])) : ?>
+                                <p class="text-red-500 text-xs"><?php echo $errors['email']; ?></p>
+                            <?php endif; ?>
                         </div>
+
                         <div class="space-y-1 flex flex-col">
                             <label class="text-sm text-gray-800 font-medium" for="address">Address</label>
-                            <input type="text" name="address" placeholder="Enter your address" id="address" value="<?php echo $address['address']; ?>" class="bg-white px-2 text-sm rounded-md border border-gray-300 h-10 placeholder:text-sm placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-700 focus-visible:ring-offset-2">
+                            <input type="text" name="address" placeholder="Enter your address" id="address" value="<?php echo htmlspecialchars($address['address'] ?? ''); ?>" class="bg-white px-2 text-sm rounded-md border border-gray-300 h-10 placeholder:text-sm placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-700 focus-visible:ring-offset-2 <?php echo isset($errors['address']) ? 'border-red-500' : ''; ?>">
+                            <?php if (isset($errors['address'])) : ?>
+                                <p class="text-red-500 text-xs"><?php echo $errors['address']; ?></p>
+                            <?php endif; ?>
                         </div>
-            
+
                         <div class="grid grid-cols-2 gap-4">
                             <div class="space-y-1 flex flex-col">
                                 <label class="text-sm text-gray-800 font-medium" for="city">City</label>
-                                <input type="text" name="city" placeholder="Enter your city" id="city" value="<?php echo $address['city']; ?>" class="bg-white px-2 text-sm rounded-md border border-gray-300 h-10 placeholder:text-sm placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-700 focus-visible:ring-offset-2">
+                                <input type="text" name="city" placeholder="Enter your city" id="city" value="<?php echo htmlspecialchars($address['city'] ?? ''); ?>" class="bg-white px-2 text-sm rounded-md border border-gray-300 h-10 placeholder:text-sm placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-700 focus-visible:ring-offset-2 <?php echo isset($errors['city']) ? 'border-red-500' : ''; ?>">
+                                <?php if (isset($errors['city'])) : ?>
+                                    <p class="text-red-500 text-xs"><?php echo $errors['city']; ?></p>
+                                <?php endif; ?>
                             </div>
+
                             <div class="space-y-1 flex flex-col">
                                 <label class="text-sm text-gray-800 font-medium" for="postal-code">Postal Code</label>
-                                <input type="text" name="post_code" placeholder="Enter postal code" id="postal-code" value="<?php echo $address['post_code']; ?>" class="bg-white px-2 text-sm rounded-md border border-gray-300 h-10 placeholder:text-sm placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-700 focus-visible:ring-offset-2">
+                                <input type="text" name="post_code" placeholder="Enter postal code" id="postal-code" value="<?php echo htmlspecialchars($address['post_code'] ?? ''); ?>" class="bg-white px-2 text-sm rounded-md border border-gray-300 h-10 placeholder:text-sm placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-700 focus-visible:ring-offset-2 <?php echo isset($errors['post_code']) ? 'border-red-500' : ''; ?>">
+                                <?php if (isset($errors['post_code'])) : ?>
+                                    <p class="text-red-500 text-xs"><?php echo $errors['post_code']; ?></p>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
